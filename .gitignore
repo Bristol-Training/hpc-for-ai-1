@@ -1,0 +1,11 @@
+# macOS
+.DS_Store
+
+# Python / Jupyter
+__pycache__/
+.ipynb_checkpoints/
+
+# Quarto build leftovers
+.quarto/
+source/*_files/
+source/*.html

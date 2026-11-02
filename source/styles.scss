@@ -1,0 +1,180 @@
+
+/*-- scss:defaults --*/
+// Source Sans Pro is bundled in assets/fonts (see fonts.css), so don't fetch it from Google
+$web-font-path: false;
+// main content column ~25% wider than Quarto's default (800px)
+$grid-body-width: 1250px;
+
+/*-- scss:rules --*/
+.callout.callout-style-default .callout-body {
+    font-size: 1.0rem;
+  }
+
+  .sidebar-logo {
+    margin-bottom: 1.5em;
+   }
+
+  .sidebar-title {
+    color: #3d0251;
+    font-size: 1.5rem;
+    font-weight: bold;
+    text-align: center;
+  }
+
+  .sidebar-search {
+    margin-top: 0.8em;
+    margin-bottom: 1em;
+  }
+
+  .cell-output {
+    border-left: 0.25em solid #b895ce;
+    padding-left: 0.7em;
+
+  }
+
+  pre.sourceCode.bash {
+    background-color: lightgray;
+  }
+
+  .code-with-filename .code-with-filename-file {
+    background-color: lightslategray;
+    &, & * {
+      color: rgb(230, 230, 230) !important;
+      font-weight: normal !important;
+    }
+  }
+
+/* ---- additions for the combined live-coding notes (kept in step with slides.scss) ---- */
+
+/* question that opens each section */
+.lead-question {
+  display: block;
+  font-size: 1.35rem;
+  font-style: italic;
+  color: #3d0251;
+  border-left: 0.3em solid #b895ce;
+  padding-left: 0.6em;
+  margin: 0.5em 0 1em 0;
+}
+
+/* flow diagrams: a → b → c */
+.flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.35em;
+  margin: 1em 0;
+}
+
+.flow .step {
+  background: #3d0251;
+  color: #fff;
+  border-radius: 0.3em;
+  padding: 0.25em 0.6em;
+  font-family: var(--bs-font-monospace);
+  font-size: 0.9rem;
+}
+
+.flow .step.light {
+  background: #f4eef8;
+  color: #3d0251;
+  border: 2px solid #3d0251;
+}
+
+.flow .arrow {
+  color: #b895ce;
+  font-weight: 700;
+  font-size: 1.2rem;
+}
+
+/* do / don't */
+.good,
+.bad {
+  border-radius: 0.3em;
+  padding: 0.3em 0.7em;
+  margin: 0.4em 0;
+}
+
+.good {
+  background: #e6f4ea;
+  border-left: 0.3em solid #1e8e3e;
+}
+
+.bad {
+  background: #fce8e6;
+  border-left: 0.3em solid #c5221f;
+}
+
+/* cards */
+.cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+  gap: 0.6em;
+  margin: 1em 0;
+}
+
+.card {
+  background: #f4eef8;
+  border: none;
+  border-top: 0.25em solid #3d0251;
+  border-radius: 0.3em;
+  padding: 0.5em 0.7em;
+}
+
+.card strong:first-child {
+  display: block;
+  color: #3d0251;
+}
+
+.big-statement {
+  font-size: 1.4rem;
+  font-weight: 700;
+  color: #3d0251;
+  text-align: center;
+  margin: 1em 0;
+}
+
+/* ---- course website hub (site build only) ---- */
+
+/* embedded slides: responsive 16:9 */
+.slides-embed {
+  width: 100%;
+  max-width: 760px;  // keep the slides from dominating the page on wide screens
+  aspect-ratio: 16 / 9;
+  margin: 1em auto 0.5em auto;
+  border: 0.2em solid #3d0251;
+  border-radius: 0.4em;
+  overflow: hidden;
+  background: #fff;
+}
+
+.slides-embed iframe {
+  display: block;
+  width: 100%;
+  height: 100%;
+  border: 0;
+}
+
+.hub-buttons {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 0.5em;
+  margin-bottom: 0.5em;
+}
+
+.hub-btn {
+  background: #3d0251;
+  color: #fff;
+  border: none;
+  &:hover,
+  &:focus {
+    background: #5a1a72;
+    color: #fff;
+  }
+}
+
+.hub-cards {
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+}

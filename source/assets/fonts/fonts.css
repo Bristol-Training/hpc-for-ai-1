@@ -1,0 +1,24 @@
+/* Source Sans Pro, bundled so the notes look the same offline and when
+   Google Fonts is blocked. Same font and weights as the Cosmo theme uses
+   (and as the R-Live course notes embed). SIL Open Font License 1.1. */
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 300;
+  font-display: swap;
+  src: url(source-sans-pro-300.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 400;
+  font-display: swap;
+  src: url(source-sans-pro-400.ttf) format('truetype');
+}
+@font-face {
+  font-family: 'Source Sans Pro';
+  font-style: normal;
+  font-weight: 700;
+  font-display: swap;
+  src: url(source-sans-pro-700.ttf) format('truetype');
+}

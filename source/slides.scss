@@ -1,0 +1,179 @@
+/*-- scss:defaults --*/
+$jgi-purple: #3d0251;
+$jgi-lilac: #b895ce;
+$jgi-pale: #f4eef8;
+
+$presentation-heading-color: $jgi-purple;
+$link-color: $jgi-purple;
+$presentation-font-size-root: 36px;
+$presentation-heading-font-weight: 700;
+$code-block-font-size: 0.75em;
+
+/*-- scss:rules --*/
+.reveal .slide-logo {
+  max-height: 2.4rem !important;
+}
+
+.reveal .footer {
+  font-size: 0.45em;
+}
+
+/* ---- section divider slides: white text on purple ---- */
+.reveal .slides section.has-dark-background,
+.reveal .slides section.has-dark-background h1,
+.reveal .slides section.has-dark-background h2,
+.reveal .slides section[data-background-color="#3d0251"] h1,
+.reveal .slides section[data-background-color="#3d0251"] h2 {
+  color: #ffffff !important;
+}
+
+.reveal .section-number {
+  display: block;
+  font-size: 0.5em;
+  letter-spacing: 0.2em;
+  color: $jgi-lilac;
+  margin-bottom: 0.3em;
+}
+
+.reveal .section-question {
+  color: #e9dcf2;
+  font-size: 1em;
+  font-style: italic;
+  margin-top: 0.8em;
+}
+
+/* ---- big statement text ---- */
+.reveal .big {
+  font-size: 1.7em;
+  font-weight: 700;
+  line-height: 1.2;
+  color: $jgi-purple;
+}
+
+.reveal .medium {
+  font-size: 1.2em;
+}
+
+.reveal .muted {
+  color: #777;
+  font-size: 0.75em;
+}
+
+.reveal .center {
+  text-align: center;
+}
+
+/* ---- output styling to match the notes ---- */
+.reveal .cell-output {
+  border-left: 0.25em solid $jgi-lilac;
+  padding-left: 0.7em;
+}
+
+/* ---- cards ---- */
+.reveal .cards {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 0.5em;
+  margin-top: 0.5em;
+}
+
+.reveal .card {
+  background: $jgi-pale;
+  border-top: 0.25em solid $jgi-purple;
+  border-radius: 0.3em;
+  padding: 0.4em 0.6em;
+  font-size: 0.7em;
+  text-align: left;
+}
+
+.reveal .card strong:first-child {
+  display: block;
+  color: $jgi-purple;
+  font-size: 1.15em;
+  margin-bottom: 0.2em;
+}
+
+.reveal .card code {
+  font-size: 0.95em;
+}
+
+/* ---- flow diagrams: a → b → c ---- */
+.reveal .flow {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-wrap: wrap;
+  gap: 0.3em;
+  margin: 0.6em 0;
+}
+
+.reveal .flow .step {
+  background: $jgi-purple;
+  color: #fff;
+  border-radius: 0.3em;
+  padding: 0.3em 0.6em;
+  font-size: 0.75em;
+  font-family: monospace;
+}
+
+.reveal .flow .step.light {
+  background: $jgi-pale;
+  color: $jgi-purple;
+  border: 2px solid $jgi-purple;
+}
+
+.reveal .flow .arrow {
+  color: $jgi-lilac;
+  font-size: 1.2em;
+  font-weight: 700;
+}
+
+/* ---- do / don't boxes ---- */
+.reveal .good,
+.reveal .bad {
+  border-radius: 0.3em;
+  padding: 0.3em 0.6em;
+  margin: 0.3em 0;
+  font-size: 0.8em;
+}
+
+.reveal .good {
+  background: #e6f4ea;
+  border-left: 0.3em solid #1e8e3e;
+}
+
+.reveal .bad {
+  background: #fce8e6;
+  border-left: 0.3em solid #c5221f;
+}
+
+/* ---- mini tables used as data diagrams ---- */
+.reveal table.mini {
+  font-size: 0.55em;
+  border-collapse: collapse;
+  margin: 0.3em auto;
+}
+
+.reveal table.mini td,
+.reveal table.mini th {
+  border: 1px solid $jgi-lilac;
+  padding: 0.15em 0.5em;
+}
+
+.reveal table.mini th {
+  background: $jgi-purple;
+  color: #fff;
+}
+
+.reveal table {
+  font-size: 0.7em;
+}
+
+/* ---- "your turn" slides ---- */
+.reveal .your-turn {
+  font-size: 0.85em;
+}
+
+.reveal .callout.callout-style-default .callout-body {
+  font-size: 0.8em;
+}

@@ -1,0 +1,71 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 860 430" font-family="Helvetica, Arial, sans-serif" role="img" aria-labelledby="t3 d3">
+  <title id="t3">Data parallel training on four GPUs</title>
+  <desc id="d3">A batch of 64 images is split into four slices of 16. Each GPU holds an identical copy of the model, processes its slice and works out its own gradients. The GPUs then average their gradients in an all-reduce step, so every copy of the model makes the same update and stays identical.</desc>
+  <defs>
+    <marker id="ah3" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+      <path d="M0 0 L10 5 L0 10 Z" fill="#b895ce"/>
+    </marker>
+  </defs>
+  <rect width="860" height="430" fill="#ffffff"/>
+
+  <!-- batch -->
+  <rect x="230" y="18" width="400" height="44" rx="8" fill="#f4eef8" stroke="#3d0251" stroke-width="2"/>
+  <text x="430" y="46" text-anchor="middle" font-size="17" font-weight="700" fill="#3d0251">One batch: 64 X-rays</text>
+
+  <g stroke="#b895ce" stroke-width="3" marker-end="url(#ah3)">
+    <line x1="300" y1="64" x2="125" y2="106"/>
+    <line x1="390" y1="64" x2="330" y2="106"/>
+    <line x1="470" y1="64" x2="530" y2="106"/>
+    <line x1="560" y1="64" x2="735" y2="106"/>
+  </g>
+
+  <g text-anchor="middle">
+    <g transform="translate(40,110)">
+      <text x="85" y="14" font-size="13" fill="#666">16 images</text>
+      <rect y="24" width="170" height="110" rx="10" fill="#3d0251"/>
+      <text x="85" y="54" font-size="16" font-weight="700" fill="#fff">GPU 0</text>
+      <text x="85" y="80" font-size="13" fill="#fff">model copy</text>
+      <text x="85" y="112" font-size="13" fill="#e9dcf2">→ gradients</text>
+    </g>
+    <g transform="translate(245,110)">
+      <text x="85" y="14" font-size="13" fill="#666">16 images</text>
+      <rect y="24" width="170" height="110" rx="10" fill="#3d0251"/>
+      <text x="85" y="54" font-size="16" font-weight="700" fill="#fff">GPU 1</text>
+      <text x="85" y="80" font-size="13" fill="#fff">model copy</text>
+      <text x="85" y="112" font-size="13" fill="#e9dcf2">→ gradients</text>
+    </g>
+    <g transform="translate(450,110)">
+      <text x="85" y="14" font-size="13" fill="#666">16 images</text>
+      <rect y="24" width="170" height="110" rx="10" fill="#3d0251"/>
+      <text x="85" y="54" font-size="16" font-weight="700" fill="#fff">GPU 2</text>
+      <text x="85" y="80" font-size="13" fill="#fff">model copy</text>
+      <text x="85" y="112" font-size="13" fill="#e9dcf2">→ gradients</text>
+    </g>
+    <g transform="translate(655,110)">
+      <text x="85" y="14" font-size="13" fill="#666">16 images</text>
+      <rect y="24" width="170" height="110" rx="10" fill="#3d0251"/>
+      <text x="85" y="54" font-size="16" font-weight="700" fill="#fff">GPU 3</text>
+      <text x="85" y="80" font-size="13" fill="#fff">model copy</text>
+      <text x="85" y="112" font-size="13" fill="#e9dcf2">→ gradients</text>
+    </g>
+  </g>
+
+  <g stroke="#b895ce" stroke-width="3">
+    <line x1="125" y1="246" x2="125" y2="290"/>
+    <line x1="330" y1="246" x2="330" y2="290"/>
+    <line x1="535" y1="246" x2="535" y2="290"/>
+    <line x1="740" y1="246" x2="740" y2="290"/>
+  </g>
+
+  <rect x="40" y="290" width="785" height="56" rx="10" fill="#f4eef8" stroke="#3d0251" stroke-width="2"/>
+  <text x="432" y="316" text-anchor="middle" font-size="16" font-weight="700" fill="#3d0251">All-reduce: the GPUs average their gradients</text>
+  <text x="432" y="336" text-anchor="middle" font-size="13" fill="#333">(the GPUs talk to each other directly, using NVIDIA's NCCL library)</text>
+
+  <g stroke="#b895ce" stroke-width="3" marker-end="url(#ah3)">
+    <line x1="125" y1="348" x2="125" y2="378"/>
+    <line x1="330" y1="348" x2="330" y2="378"/>
+    <line x1="535" y1="348" x2="535" y2="378"/>
+    <line x1="740" y1="348" x2="740" y2="378"/>
+  </g>
+  <text x="432" y="408" text-anchor="middle" font-size="15" fill="#333">Every GPU makes the <tspan font-weight="700" fill="#3d0251">same update</tspan>, so all four model copies stay identical</text>
+</svg>
