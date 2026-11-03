@@ -1,5 +1,5 @@
 ---
-title: "HPC for AI"
+title: "HPC for AI - Part 1"
 subtitle: "Training a computer vision model on Isambard-AI"
 author: "Jean Golding Institute"
 format:
@@ -68,7 +68,7 @@ In this course you'll use Isambard-AI, one of the UK's national supercomputers f
 
 Training a deep learning model means repeating the same calculations over and over, often millions of times. A laptop can manage this for small problems, but it soon gets too slow. Supercomputers like Isambard-AI are built around GPUs (graphics processing units), which can do thousands of these calculations at the same time. During the course you'll see how much difference a GPU makes, and what happens when you use more than one.
 
-We'll use the same example throughout: training a model to spot bone fractures in X-ray images. A model like this could, with a lot more work, help clinicians decide which scans to look at first.
+We'll use the same example throughout: training a model to spot bone fractures in X-ray images. A model like this could, with a lot more work, help clinicians decide which scans to look at first. This could be useful for patient triage in an emergency department.
 
 ## The data: FracAtlas {.unnumbered}
 
@@ -103,7 +103,7 @@ The notebook is already written, so you won't need to type much code. Instead, r
 By the end of this course, you will:
 
 - Understand when and why AI projects need high performance computing (HPC).
-- Be able to start a JupyterLab session with GPUs on Isambard-AI.
+- Be able to start a JupyterHub session with GPUs on Isambard-AI.
 - Be able to prepare an image dataset and train an image classification model on a GPU.
 - Know how to judge a classifier on imbalanced medical data.
 - Be able to train a model on several GPUs, and understand how this works.
@@ -1020,7 +1020,7 @@ This course uses the FracAtlas dataset. If you use it in your own work, please c
 
 The dataset is available from [figshare](https://doi.org/10.6084/m9.figshare.22363012) under a CC BY 4.0 licence.
 
-This course is based on Evie James's [Radiograph-Reader](https://github.com/evie-grace/Radiograph-Reader) project. Developed by the [Jean Golding Institute](https://www.bristol.ac.uk/golding/). Jean Golding Institute © CC BY 4.0.
+This course is based on Evie Grace's [Radiograph-Reader](https://github.com/evie-grace/Radiograph-Reader) project. Developed by the [Jean Golding Institute](https://www.bristol.ac.uk/golding/). Jean Golding Institute © CC BY 4.0.
 
 ::: {.content-hidden when-meta="attendee"}
 # Instructor setup {#sec-instructor-setup .unnumbered}
