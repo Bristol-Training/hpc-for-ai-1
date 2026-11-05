@@ -343,7 +343,7 @@ How many times the model sees every image
 :::
 ::: {.card}
 **Image size**
-224 × 224 pixels
+512 × 512 pixels
 :::
 ::: {.card}
 **Batch**
@@ -377,7 +377,7 @@ Open the GPU dashboard before you run this cell
 :::
 
 ::: notes
-While it trains, ask whether GPU 0 is at 100%, and if not, what it might be waiting for. (Usually the CPU workers loading images.) This leads into section 5.
+While it trains, ask whether GPU 0 is at 100%, and if not, what it might be waiting for. (Often the CPU workers loading images.) This leads into section 5.
 :::
 
 ## Is the accuracy any good?
@@ -472,7 +472,7 @@ The GPUs have to stop and share after every batch
 :::
 ::: {.card}
 **Small batches**
-16 images isn't enough to keep an H100 busy
+Less work per GPU between each round of sharing
 :::
 ::: {.card}
 **Loading data**
@@ -483,7 +483,7 @@ The CPU has to keep four GPUs supplied instead of one
 <br>
 
 ::: {.center}
-With a small model and dataset, these costs cancel out much of the benefit.<br>With large models that take days to train, extra GPUs make a big difference.
+With a small model and dataset, these costs cancel out much of the benefit.<br>With large models that take days to train, extra GPUs can make a big difference.
 :::
 
 ## Giving each GPU more work

@@ -37,7 +37,7 @@ uv venv --seed --managed-python --python 3.12 "$VENV"
 # stops pip from swapping in a CPU-only build later.
 echo "Installing PyTorch..."
 uv pip install --python "$VENV/bin/python" \
-    torch==2.9.0 torchvision \
+    torch==2.9.0 torchvision==0.24.0 \
     --extra-index-url https://download.pytorch.org/whl/cu128
 
 echo "Installing the course packages..."

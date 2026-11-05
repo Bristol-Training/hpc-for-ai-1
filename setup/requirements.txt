@@ -1,9 +1,11 @@
 # Course packages, installed after PyTorch by build-environment.sh.
-# TODO: after the dry run, pin the exact versions that worked
-# (uv pip freeze --python <venv>/bin/python).
-ultralytics>=8.3,<9
-pandas
-scikit-learn
-matplotlib
-pillow
-ipykernel
+# Pinned to the versions used in the dry run on Isambard-AI (November 2026).
+# PyTorch itself is pinned in build-environment.sh (torch 2.9.0, torchvision 0.24.0).
+ultralytics==8.4.198
+opencv-python==5.0.0.93
+numpy==2.5.4
+pandas==3.1.0
+scikit-learn==1.9.1
+matplotlib==3.11.2
+pillow==13.0.0
+ipykernel==7.4.0

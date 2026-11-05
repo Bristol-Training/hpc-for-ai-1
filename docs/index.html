@@ -2509,7 +2509,7 @@ src: url(data:font/ttf;base64,AAEAAAAOAIAAAwBgQkFTRVT/bgMAAAFoAAAARkdERUaZK5kzAA
 <p><strong>GPU</strong> A GPU has thousands of simpler cores that all do the same sum on different numbers at once, which is exactly what a neural network needs.</p>
 </div>
 </div>
-<p>Most laptops have a CPU with a few cores, and many don’t have a GPU that deep learning libraries can use. That’s fine for learning and for small models, but bigger projects soon run into problems. Training can take hours or days, the model or a batch of images might not fit in memory, or you might want to try lots of different settings and not have time.</p>
+<p>Most laptops have a CPU with a few cores, and many don’t have an NVIDIA GPU, which is what most deep learning software is built to use. That’s fine for learning and for small models, but bigger projects soon run into problems. Training can take hours or days, the model or a batch of images might not fit in memory, or you might want to try lots of different settings and not have time.</p>
 <section id="isambard-ai" class="level2" data-number="1.1">
 <h2 data-number="1.1" class="anchored" data-anchor-id="isambard-ai"><span class="header-section-number">1.1</span> Isambard-AI</h2>
 <p>Isambard-AI is a supercomputer in Bristol, run by the Bristol Centre for Supercomputing (BriCS) as part of the UK’s AI Research Resource. Phase 2 of the system has 1,320 <em>nodes</em>, which are the individual computers that make up the supercomputer. Each node has four NVIDIA GH200 Grace Hopper “superchips”, and each superchip combines a 72-core Grace CPU with an H100 GPU that has 96 GB of memory.</p>
@@ -2799,7 +2799,7 @@ src: url(data:font/ttf;base64,AAEAAAAOAIAAAwBgQkFTRVT/bgMAAAFoAAAARkdERUaZK5kzAA
 <pre><strong>hpc-for-ai.ipynb</strong></pre>
 </div>
 <div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb9" data-filename="hpc-for-ai.ipynb"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb9-1"><a href="#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="co"># Shared course files (read-only for you)</span></span>
-<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>COURSE_DIR <span class="op">=</span> Path(os.environ.get(<span class="st">&quot;PROJECTDIR&quot;</span>, <span class="st">&quot;/projects/TODO_PROJECT&quot;</span>)) <span class="op">/</span> <span class="st">&quot;hpc-ai-1&quot;</span></span>
+<span id="cb9-2"><a href="#cb9-2" aria-hidden="true" tabindex="-1"></a>COURSE_DIR <span class="op">=</span> Path(os.environ.get(<span class="st">&quot;PROJECTDIR&quot;</span>, <span class="st">&quot;/projects/b6er&quot;</span>)) <span class="op">/</span> <span class="st">&quot;hpc-ai-1&quot;</span></span>
 <span id="cb9-3"><a href="#cb9-3" aria-hidden="true" tabindex="-1"></a>DATA_DIR <span class="op">=</span> COURSE_DIR <span class="op">/</span> <span class="st">&quot;FracAtlas&quot;</span></span>
 <span id="cb9-4"><a href="#cb9-4" aria-hidden="true" tabindex="-1"></a>WEIGHTS <span class="op">=</span> COURSE_DIR <span class="op">/</span> <span class="st">&quot;weights&quot;</span> <span class="op">/</span> <span class="st">&quot;yolov8n-cls.pt&quot;</span></span>
 <span id="cb9-5"><a href="#cb9-5" aria-hidden="true" tabindex="-1"></a></span>
@@ -2947,7 +2947,7 @@ src: url(data:font/ttf;base64,AAEAAAAOAIAAAwBgQkFTRVT/bgMAAAFoAAAARkdERUaZK5kzAA
 </div>
 </div>
 <div class="callout-body-container callout-body">
-<p>87 of the non-fractured images in the FracAtlas download are slightly damaged: the end of each file is missing. When these images are opened, the missing part usually shows up as a flat grey band along the bottom. Because only non-fractured images have the band, a model could learn that “grey band means not fractured”, which has nothing to do with bones. We’ve cropped the grey bands off and repaired the files in the copy we’re using, and listed the changes in <code>FracAtlas/truncated-images.txt</code>. Problems like this are common in real datasets, so it’s always worth checking your images before training on them.</p>
+<p>87 of the non-fractured images in the FracAtlas download are slightly damaged: the end of each file is missing. When these images are opened, some of them show the missing part as a flat grey band along the bottom. Because only non-fractured images have the band, a model could learn that “grey band means not fractured”, which has nothing to do with bones. We’ve cropped the grey bands off and repaired the files in the copy we’re using, and listed the changes in <code>FracAtlas/truncated-images.txt</code>. Problems like this are common in real datasets, so it’s always worth checking your images before training on them.</p>
 </div>
 </div>
 </section>
@@ -2961,7 +2961,7 @@ src: url(data:font/ttf;base64,AAEAAAAOAIAAAwBgQkFTRVT/bgMAAAFoAAAARkdERUaZK5kzAA
 <span id="cb14-2"><a href="#cb14-2" aria-hidden="true" tabindex="-1"></a>sizes <span class="op">=</span> pd.DataFrame(sizes, columns<span class="op">=</span>[<span class="st">&quot;width&quot;</span>, <span class="st">&quot;height&quot;</span>])</span>
 <span id="cb14-3"><a href="#cb14-3" aria-hidden="true" tabindex="-1"></a>sizes.describe().<span class="bu">round</span>()</span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
-<p>The images are all different sizes, but the model needs them to be the same size, so it shrinks each one to 224 × 224 pixels as it loads it. We lose some detail by doing this. Using larger images might give a better model, but it would take longer to train.</p>
+<p>Look at the widths and heights in the table. The model needs every image to be the same size, so when it loads an image it scales it until the shorter side is 512 pixels, then keeps the middle 512 × 512 square. For a tall image, that means a little is cut off the top and bottom. Choosing the size is a trade-off. Smaller images train faster, but fine details such as hairline fractures can get lost. In our dry run, 224 × 224 pixels with only 10 epochs trained in 30 seconds, but the model found far fewer of the fractures than 512 × 512 pixels with 50 epochs.</p>
 </section>
 <section id="fractures-by-body-region" class="level2" data-number="3.6">
 <h2 data-number="3.6" class="anchored" data-anchor-id="fractures-by-body-region"><span class="header-section-number">3.6</span> Fractures by body region</h2>
@@ -3128,8 +3128,8 @@ src: url(data:font/ttf;base64,AAEAAAAOAIAAAwBgQkFTRVT/bgMAAAFoAAAARkdERUaZK5kzAA
 <div class="code-with-filename-file">
 <pre><strong>hpc-for-ai.ipynb</strong></pre>
 </div>
-<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20" data-filename="hpc-for-ai.ipynb"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>EPOCHS <span class="op">=</span> <span class="dv">10</span>      <span class="co"># </span><span class="al">TODO</span><span class="co"> (instructors): tune after the dry run so each run takes about 10 minutes</span></span>
-<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>IMG_SIZE <span class="op">=</span> <span class="dv">224</span></span>
+<div class="code-copy-outer-scaffold"><div class="sourceCode" id="cb20" data-filename="hpc-for-ai.ipynb"><pre class="sourceCode python code-with-copy"><code class="sourceCode python"><span id="cb20-1"><a href="#cb20-1" aria-hidden="true" tabindex="-1"></a>EPOCHS <span class="op">=</span> <span class="dv">50</span></span>
+<span id="cb20-2"><a href="#cb20-2" aria-hidden="true" tabindex="-1"></a>IMG_SIZE <span class="op">=</span> <span class="dv">512</span></span>
 <span id="cb20-3"><a href="#cb20-3" aria-hidden="true" tabindex="-1"></a>BATCH <span class="op">=</span> <span class="dv">64</span></span>
 <span id="cb20-4"><a href="#cb20-4" aria-hidden="true" tabindex="-1"></a>WORKERS <span class="op">=</span> <span class="dv">8</span></span></code></pre></div><button title="Copy to Clipboard" class="code-copy-button"><i class="bi"></i></button></div>
 </div>
@@ -3151,7 +3151,7 @@ src: url(data:font/ttf;base64,AAEAAAAOAIAAAwBgQkFTRVT/bgMAAAFoAAAARkdERUaZK5kzAA
 </tr>
 <tr class="even">
 <td><code>IMG_SIZE</code></td>
-<td>The size each image is shrunk to, in pixels (width and height).</td>
+<td>The width and height, in pixels, of the square each image is turned into.</td>
 </tr>
 <tr class="odd">
 <td><code>BATCH</code></td>
@@ -3195,7 +3195,7 @@ src: url(data:font/ttf;base64,AAEAAAAOAIAAAwBgQkFTRVT/bgMAAAFoAAAARkdERUaZK5kzAA
 </section>
 <section id="how-did-training-go" class="level2" data-number="4.4">
 <h2 data-number="4.4" class="anchored" data-anchor-id="how-did-training-go"><span class="header-section-number">4.4</span> How did training go?</h2>
-<p>Ultralytics saves some plots of the training run in the run’s folder. This cell shows two of them.</p>
+<p>Ultralytics saves some plots of the training run in the run’s folder. This cell shows two of them. In the first, ignore the <code>accuracy_top5</code> plot: it measures whether the right answer is in the model’s top five guesses, and with only two classes it always is.</p>
 <div class="code-with-filename">
 <div class="code-with-filename-file">
 <pre><strong>hpc-for-ai.ipynb</strong></pre>
@@ -3302,6 +3302,7 @@ src: url(data:font/ttf;base64,AAEAAAAOAIAAAwBgQkFTRVT/bgMAAAFoAAAARkdERUaZK5kzAA
 <li>What is the model’s recall for the <code>fractured</code> class? What does that number mean in plain English?</li>
 <li>How many of the real fractures in the test set did the model miss?</li>
 <li>Would you be happy using this model to decide which X-rays to look at first? What would you want to know before you did?</li>
+<li><em>If you have time:</em> change <code>IMG_SIZE</code> to <code>224</code> in the settings cell, then run the training and testing cells again. How do the training time and recall change?</li>
 </ol>
 </div>
 </div>
@@ -3321,6 +3322,7 @@ src: url(data:font/ttf;base64,AAEAAAAOAIAAAwBgQkFTRVT/bgMAAAFoAAAARkdERUaZK5kzAA
 <li>Look at the <code>recall</code> value in the <code>fractured</code> row. A recall of 0.70, for example, means the model found 70% of the fractures in the test set and missed the other 30%.</li>
 <li>In the confusion matrix, the missed fractures are the images where the true label is <code>fractured</code> but the predicted label is <code>not_fractured</code>.</li>
 <li>Almost certainly not yet. You’d want to know, for example, how well it works on X-rays from other hospitals and for each body region, whether it’s taking shortcuts such as spotting hardware, how it does with a proper split by patient, and whether it actually helps in a clinical study. A model like this would only ever support a clinician’s decision, not replace it.</li>
+<li>Training should be quite a bit faster with smaller images. Recall may drop, because fine details such as hairline fractures can be lost when the image is made smaller, but with only 108 fractures in the test set, a small difference could just be chance. Remember to set <code>IMG_SIZE</code> back to <code>512</code> afterwards.</li>
 </ol>
 </div>
 </div>
@@ -3400,7 +3402,7 @@ src: url(data:font/ttf;base64,AAEAAAAOAIAAAwBgQkFTRVT/bgMAAAFoAAAARkdERUaZK5kzAA
 <ul>
 <li>It takes time to start four processes and connect the GPUs to each other, and for a short training run that’s a large part of the total time.</li>
 <li>After every batch, the GPUs have to stop and share their gradients.</li>
-<li>Each GPU only gets 16 images per batch now, which isn’t enough to keep an H100 busy, so it spends more of its time waiting.</li>
+<li>Each GPU only gets 16 images per batch now, so it has less work to do between each round of sharing gradients, and spends more of its time waiting.</li>
 <li>The CPU workers now have to load images for four GPUs instead of one.</li>
 </ul>
 <p>With a small model and dataset like ours, these costs can cancel out most of the benefit of the extra GPUs. With large models and datasets that take hours or days to train, they matter much less, and more GPUs can make a big difference.</p>
@@ -3541,7 +3543,7 @@ src: url(data:font/ttf;base64,AAEAAAAOAIAAAwBgQkFTRVT/bgMAAAFoAAAARkdERUaZK5kzAA
 <div class="callout-body-container callout-body">
 <p>Your numbers will be different, but this is what usually happens:</p>
 <ol type="1">
-<li>Four GPUs with a batch of 256 is usually faster than four GPUs with a batch of 64, because each GPU does more work between each round of sharing gradients. Neither is close to four times faster for a job this small, because starting up, sharing gradients and loading data take up a lot of the time.</li>
+<li>Four GPUs with a batch of 256 should usually be faster than four GPUs with a batch of 64, because each GPU does more work between each round of sharing gradients. Neither is close to four times faster for a job this small, because starting up, sharing gradients and loading data take up a lot of the time.</li>
 <li>Usually about the same. The bigger batch might be slightly worse, because the model updated its weights fewer times.</li>
 <li>A bigger model does much more calculation for each image, so the GPUs spend more of their time calculating and less time waiting. The speed-up from four GPUs gets closer to four. (You’d need to download the bigger model’s weights first.)</li>
 </ol>

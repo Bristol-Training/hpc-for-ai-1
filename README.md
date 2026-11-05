@@ -170,7 +170,7 @@ See the **Instructor setup** section at the end of the instructor notes. In shor
 
 1. The course runs in the training project, using the `interactive` reservation (no course reservation). Check with BriCS how many attendees can have a whole node at once.
 2. Over SSH on a **login node** (the compute nodes have no internet), build the course kernel with `setup/build-environment.sh`, and put the FracAtlas dataset, the `yolov8n-cls.pt` weights and the notebook in the project folder.
-3. Do a full dry run in JupyterHub and fill in the `TODO`s in the notes and notebook.
+3. Do a full dry run in JupyterHub and fill in the remaining `TODO`s in the instructor notes (the 4-GPU timings and the feedback form link).
 
 ## Credits
 

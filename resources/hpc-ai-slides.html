@@ -1451,7 +1451,7 @@ display:block!important;
 <p><strong>Epochs</strong> How many times the model sees every image</p>
 </div>
 <div class="card">
-<p><strong>Image size</strong> 224 × 224 pixels</p>
+<p><strong>Image size</strong> 512 × 512 pixels</p>
 </div>
 <div class="card">
 <p><strong>Batch</strong> Images per update</p>
@@ -1484,7 +1484,7 @@ display:block!important;
 <p>Open the GPU dashboard before you run this cell</p>
 </div>
 <aside class="notes">
-<p>While it trains, ask whether GPU 0 is at 100%, and if not, what it might be waiting for. (Usually the CPU workers loading images.) This leads into section 5.</p>
+<p>While it trains, ask whether GPU 0 is at 100%, and if not, what it might be waiting for. (Often the CPU workers loading images.) This leads into section 5.</p>
 <style type="text/css">
 span.MJX_Assistive_MathML {
 position:absolute!important;
@@ -1596,7 +1596,7 @@ display:block!important;
 <p><strong>Sharing gradients</strong> The GPUs have to stop and share after every batch</p>
 </div>
 <div class="card">
-<p><strong>Small batches</strong> 16 images isn’t enough to keep an H100 busy</p>
+<p><strong>Small batches</strong> Less work per GPU between each round of sharing</p>
 </div>
 <div class="card">
 <p><strong>Loading data</strong> The CPU has to keep four GPUs supplied instead of one</p>
@@ -1604,7 +1604,7 @@ display:block!important;
 </div>
 <p><br></p>
 <div class="center">
-<p>With a small model and dataset, these costs cancel out much of the benefit.<br>With large models that take days to train, extra GPUs make a big difference.</p>
+<p>With a small model and dataset, these costs cancel out much of the benefit.<br>With large models that take days to train, extra GPUs can make a big difference.</p>
 </div>
 </section>
 <section id="giving-each-gpu-more-work" class="slide level2">
