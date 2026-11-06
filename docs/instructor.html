@@ -3656,7 +3656,6 @@ src: url(data:font/ttf;base64,AAEAAAAOAIAAAwBgQkFTRVT/bgMAAAFoAAAARkdERUaZK5kzAA
 <p><strong>Don’t apologise if it isn’t much faster.</strong> With a model this small, the 4-GPU run might be only slightly faster, or even slower. That’s the answer to this section’s question.</p>
 <p><strong>Common problems:</strong></p>
 <ul>
-<li><em>No training output in the notebook</em>: the training runs in separate processes, and on some setups their output goes to the server log instead of the notebook. TODO: check in the dry run. If this happens, tell people to watch the dashboard and wait for the cell to finish.</li>
 <li><em><code>Address already in use</code>, or the cell never finishes</em>: a previous DDP run didn’t shut down properly. Restart the kernel (<em>Kernel → Restart Kernel</em>), run the setup cells again and try again.</li>
 </ul>
 </div>

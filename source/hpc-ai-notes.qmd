@@ -896,7 +896,6 @@ The results should be close to the 1-GPU model's, but not exactly the same. The 
 
 **Common problems:**
 
-- *No training output in the notebook*: the training runs in separate processes, and on some setups their output goes to the server log instead of the notebook. TODO: check in the dry run. If this happens, tell people to watch the dashboard and wait for the cell to finish.
 - *`Address already in use`, or the cell never finishes*: a previous DDP run didn't shut down properly. Restart the kernel (*Kernel → Restart Kernel*), run the setup cells again and try again.
 :::
 :::
