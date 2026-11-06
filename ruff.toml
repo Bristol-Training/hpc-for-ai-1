@@ -1,0 +1,10 @@
+# Ruff settings for the course code (render.py, setup/ and the notebook).
+# See https://docs.astral.sh/ruff/
+line-length = 100
+
+[lint]
+# Ruff's default rules (errors and unused or undefined names),
+# plus warnings about likely bugs.
+extend-select = ["B"]
+# zip() without strict= is fine in teaching code.
+ignore = ["B905"]

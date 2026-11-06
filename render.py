@@ -54,7 +54,7 @@ def check_notebook_matches_notes():
     """
     notes = (SOURCE / NOTES).read_text()
     blocks = re.findall(
-        r'```\{\.python filename="hpc-for-ai\.ipynb"\}\n(.*?)\n```', notes, flags=re.S
+        r'```\{\.python filename="hpc-for-ai\.ipynb"\}\n(.*?)\n```', notes, flags=re.DOTALL
     )
     cells = {
         "".join(cell["source"]).strip()

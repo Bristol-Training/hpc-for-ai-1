@@ -1,0 +1,13 @@
+   # Checks that run automatically each time you commit.
+   repos:
+     # Remove outputs from notebooks
+     - repo: https://github.com/kynan/nbstripout
+       rev: 0.9.1
+       hooks:
+         - id: nbstripout
+
+     # Check the Python code for errors
+     - repo: https://github.com/astral-sh/ruff-pre-commit
+       rev: v0.17.4
+       hooks:
+         - id: ruff-check

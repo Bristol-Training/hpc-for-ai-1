@@ -1,5 +1,5 @@
 ---
-title: "HPC for AI"
+title: "HPC for AI - Part 1"
 subtitle: "Training a computer vision model on Isambard-AI"
 author: "Jean Golding Institute"
 format:
@@ -22,12 +22,12 @@ format:
 :::
 
 ::: notes
-By the end of the session, everyone will have trained an X-ray classifier on Isambard-AI, first on one GPU and then on four, and seen what the GPUs were doing.
+By the end of the session, everyone will have trained an X-ray classifier on one GPU on Isambard-AI, seen a demo on four GPUs, and watched what the GPUs were doing.
 :::
 
 ## How today works
 
-- Everyone gets a whole Isambard-AI node, with four GPUs
+- Each session has one GPU, and we'll demo four GPUs on screen
 - You'll run a notebook that's already written: read each cell, then run it
 - Training takes a few minutes each time, so watch the GPUs and ask questions
 - Once a cell has run, try changing something
@@ -107,7 +107,7 @@ Ask the room, and let one or two people say what held them up.
 ![](assets/laptop-vs-node.svg){fig-alt="A typical laptop has 4 to 16 CPU cores and often no GPU. One Isambard-AI node has four GH200 superchips, each with a 72-core Grace CPU and an H100 GPU with 96 GB of memory. Isambard-AI Phase 2 has 1,320 nodes." width="100%"}
 
 ::: notes
-Run by BriCS in Bristol as part of the UK's AI Research Resource. Everyone gets a whole node today.
+Run by BriCS in Bristol as part of the UK's AI Research Resource.
 :::
 
 # [02]{.section-number} Getting onto Isambard-AI {background-color="#3d0251"}
@@ -116,7 +116,7 @@ Run by BriCS in Bristol as part of the UK's AI Research Resource. Everyone gets 
 
 ## Asking for GPUs
 
-![](assets/jupyterhub-flow.svg){fig-alt="Your browser connects to JupyterHub, which asks the Slurm scheduler for GPUs. Slurm starts JupyterLab on a compute node with four GH200s, which reads the shared project folder and writes to your scratch folder." width="100%"}
+![](assets/jupyterhub-flow.svg){fig-alt="Your browser connects to JupyterHub, which asks the Slurm scheduler for GPUs. Slurm starts JupyterLab on a compute node with the GPUs you asked for, which reads the shared project folder and writes to your scratch folder." width="100%"}
 
 ## Start your session
 
@@ -128,7 +128,7 @@ Run by BriCS in Bristol as part of the UK's AI Research Resource. Everyone gets 
 |---|---|
 | Project | *the course project* |
 | Job duration | *until the end of the course* |
-| Number of GH200s | 4 |
+| Number of GH200s | 1 |
 | Partition | *leave empty* |
 | Reservation | `interactive` |
 :::
@@ -214,7 +214,7 @@ None of these are backed up
 ## Your turn ✍️ {background-color="#f4eef8"}
 
 ::: {.your-turn}
-1. Run `nvidia-smi` in a terminal. How much memory does each GPU have?
+1. Run `nvidia-smi` in a terminal. How much memory does your GPU have?
 2. Change `size` to `16384` in the matrix multiplication cell and run it again. How do the CPU and GPU times change?
 :::
 
@@ -413,7 +413,7 @@ Look at your classification report and confusion matrix:
 3. Would you use this model to decide which X-rays to look at first? What would you want to know before you did?
 :::
 
-# [05]{.section-number} Scaling to four GPUs {background-color="#3d0251"}
+# [05]{.section-number} Scaling to four GPUs (demo) {background-color="#3d0251"}
 
 [Is more GPUs always faster?]{.section-question}
 
@@ -471,10 +471,6 @@ Launching four processes and connecting the GPUs
 The GPUs have to stop and share after every batch
 :::
 ::: {.card}
-**Small batches**
-Less work per GPU between each round of sharing
-:::
-::: {.card}
 **Loading data**
 The CPU has to keep four GPUs supplied instead of one
 :::
@@ -486,26 +482,15 @@ The CPU has to keep four GPUs supplied instead of one
 With a small model and dataset, these costs cancel out much of the benefit.<br>With large models that take days to train, extra GPUs can make a big difference.
 :::
 
-## Giving each GPU more work
-
-```{.python filename="hpc-for-ai.ipynb"}
-batch=BATCH * 4,      # 256 / 4 = 64 images per GPU
-```
-
-<br>
-
-::: {.bad}
-With a bigger batch, the model updates its weights less often. Check it's still as good, not just faster.
-:::
-
 ## Your turn ✍️ {background-color="#f4eef8"}
 
 ::: {.your-turn}
+Fill this in with the numbers from the demo
+
 | Run | Minutes | Speed-up | Fractured recall |
 |---|---|---|---|
-| 1 GPU, batch 64 | | 1.0 | |
-| 4 GPUs, batch 64 | | | |
-| 4 GPUs, batch 256 | | | |
+| 1 GPU | | 1.0 | |
+| 4 GPUs | | | |
 
 What do you think would happen with a much bigger model?
 :::

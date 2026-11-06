@@ -9,3 +9,6 @@ __pycache__/
 .quarto/
 source/*_files/
 source/*.html
+
+# Ruff
+.ruff_cache/

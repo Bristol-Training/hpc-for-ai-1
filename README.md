@@ -1,30 +1,24 @@
-# HPC for AI part 1
+# HPC for AI - Part 1
 
-Please note these training materials are under construction.
+## About this course
 
-About this Course:
+This course shows how to use Isambard-AI, a UK national supercomputer, to train computer vision models. You will work through a real example, training a model to spot fractures in X-ray images, and see how using more GPUs (graphics processing units) can speed up training.
 
-This course shows how to use Isambard-AI, a UK national supercomputer, to train computer vision models. You will work through a real example, training a model to spot fractures in X-ray images, and see how using more GPUs (graphics processing units) can speed up training. 
+## Prerequisites
 
-Prerequisites:
+You should be comfortable with Python and have some experience with PyTorch, at the level of Introduction to AI. Some command-line experience is helpful. You will need an Isambard-AI account, set up before the course; joining instructions will be sent in advance.
 
-You should be comfortable with Python and have some experience with PyTorch, at the level of Introduction to AI. Some command line experience is helpful. You will need an Isambard-AI account, set up before the course; joining instructions will be sent in advance. 
+## What you will learn
 
-What You Will Learn: 
-
-- When and why AI projects need high-performance computing (HPC). 
-
-- How to use Jupyter notebooks on Isambard-AI. 
-
-- How to train an image classification model on a GPU. 
-
-- How to spread training across several GPUs, and how this works behind the scenes. 
-
-- Good practice for working on a shared supercomputer. 
+- When and why AI projects need high-performance computing (HPC).
+- How to use Jupyter notebooks on Isambard-AI.
+- How to train an image classification model on a GPU.
+- How training is spread across several GPUs, and how this works behind the scenes.
+- Good practice for working on a shared supercomputer.
 
 ## How the course runs
 
-A 3-hour, hands-on session. Each attendee starts a JupyterHub session on Isambard-AI with one whole node (4 GH200s) and runs a complete notebook, `notebooks/hpc-for-ai.ipynb`. The notebook trains a YOLOv8 image classifier on the [FracAtlas](https://doi.org/10.6084/m9.figshare.22363012) X-ray dataset, first on one GPU and then on four. The slides introduce each section; the notes explain every step and have an exercise for each section.
+A 3-hour, hands-on session. Each attendee (or breakout group) starts a JupyterHub session on Isambard-AI with 1 GH200 and runs a complete notebook, `notebooks/hpc-for-ai.ipynb`. The notebook trains a YOLOv8 image classifier on the [FracAtlas](https://doi.org/10.6084/m9.figshare.22363012) X-ray dataset on one GPU. The instructor then demonstrates training on four GPUs. The slides introduce each section; the notes explain every step and have an exercise for each section.
 
 This course is written with [Quarto](https://quarto.org), and follows the structure of the [R-Live](https://github.com/Bristol-Training/R-Live) course.
 
@@ -162,15 +156,37 @@ Keep the title `Instructor notes`: `render.py` searches for it to check that not
 
 Code blocks in the notes headed `filename="hpc-for-ai.ipynb"` are exact copies of cells in `notebooks/hpc-for-ai.ipynb`. If you change one, change the other: `render.py` stops with an error if they don't match. Code in exercise answers and in the slides is not checked, so you can shorten it there.
 
-Save the notebook **without outputs** before committing (in JupyterLab: *Edit → Clear Outputs of All Cells*), or install [nbstripout](https://pypi.org/project/nbstripout/) as in the [intro-to-ai](https://github.com/Bristol-Training/intro-to-ai) course.
+### Automatic checks when you commit
+
+The repository uses [pre-commit](https://pre-commit.com) to run two checks every time you commit:
+
+- [nbstripout](https://github.com/kynan/nbstripout) removes the outputs from the notebook, so results aren't committed or copied to Isambard-AI.
+- [Ruff](https://docs.astral.sh/ruff/) checks the Python code in `render.py`, `setup/` and the notebook for errors. Its settings are in `ruff.toml`.
+
+Set it up once, from the top-level folder:
+
+```bash
+pip install pre-commit
+pre-commit install
+```
+
+To run the checks on every file without committing:
+
+```bash
+pre-commit run --all-files
+```
+
+If nbstripout changes the notebook, the commit stops. Run `git add` on the notebook again and commit again.
+
+Ruff can also reformat code (`ruff format`), but don't run it on the notebook: it would change the code cells so that they no longer match the notes.
 
 ## Setting up Isambard-AI for a course
 
 See the **Instructor setup** section at the end of the instructor notes. In short:
 
-1. The course runs in the training project, using the `interactive` reservation (no course reservation). Check with BriCS how many attendees can have a whole node at once.
+1. The course runs in the training project, using the `interactive` reservation (no course reservation). Check with BriCS whether the project has a GPU limit.
 2. Over SSH on a **login node** (the compute nodes have no internet), build the course kernel with `setup/build-environment.sh`, and put the FracAtlas dataset, the `yolov8n-cls.pt` weights and the notebook in the project folder.
-3. Do a full dry run in JupyterHub and fill in the remaining `TODO`s in the instructor notes (the 4-GPU timings and the feedback form link).
+3. Do a full dry run in JupyterHub and fill in the remaining `TODO`s in the instructor notes (whether the 4-GPU training output appears in the notebook, and the feedback form link).
 
 ## Credits
 

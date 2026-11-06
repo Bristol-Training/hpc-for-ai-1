@@ -37,29 +37,6 @@ This page has everything you need for the course. The slides we use in the sessi
 
 Click on the slides, then use the arrow keys to move through them.
 
-### Course materials {.unnumbered .unlisted}
-
-::: {.cards .hub-cards}
-::: {.card}
-**[Instructor version](instructor.html)**<br>
-These notes with the delivery team's guidance added: timings, cues and common problems.
-:::
-
-::: {.card}
-**[Course notebook](https://github.com/Bristol-Training/hpc-for-ai-1/blob/main/notebooks/hpc-for-ai.ipynb)**<br>
-The notebook you run during the session.
-:::
-
-::: {.card}
-**[Introduction to AI](https://bristol-training.github.io/intro-to-ai/)**<br>
-The course we recommend taking before this one.
-:::
-
-::: {.card}
-**[Introduction to HPC](https://bristol-training.github.io/intro-hpc/)**<br>
-Batch jobs and Slurm, which is a good next step after this course.
-:::
-:::
 :::
 
 # Introduction {.unnumbered}
@@ -68,7 +45,7 @@ In this course you'll use Isambard-AI, one of the UK's national supercomputers f
 
 Training a deep learning model means repeating the same calculations over and over, often millions of times. A laptop can manage this for small problems, but it soon gets too slow. Supercomputers like Isambard-AI are built around GPUs (graphics processing units), which can do thousands of these calculations at the same time. During the course you'll see how much difference a GPU makes, and what happens when you use more than one.
 
-We'll use the same example throughout: training a model to spot bone fractures in X-ray images. A model like this could, with a lot more work, help clinicians decide which scans to look at first. This could be useful for patient triage in an emergency department.
+We're going to explore this topic using a case study: training a model to spot bone fractures in X-ray images. A model like this could, with a lot more work, help clinicians decide which scans to look at first. This could be useful for patient triage in an emergency department.
 
 ## The data: FracAtlas {.unnumbered}
 
@@ -88,7 +65,7 @@ The images come with a file called `dataset.csv`, which has one row per image. T
 4,083 X-rays and four GPUs. Can we teach a computer to spot a fracture?
 :::
 
-Each section of the course starts with a question, which you'll answer by running part of a notebook on Isambard-AI:
+Each section of the course starts with a question, and in most sections you'll answer it by running part of a notebook on Isambard-AI:
 
 ::: {.flow}
 [Why HPC?]{.step} [→]{.arrow} [Isambard-AI]{.step} [→]{.arrow} [The data]{.step} [→]{.arrow} [1 GPU]{.step} [→]{.arrow} [4 GPUs]{.step} [→]{.arrow} [Good practice]{.step}
@@ -102,11 +79,11 @@ The notebook is already written, so you won't need to type much code. Instead, r
 
 By the end of this course, you will:
 
-- Understand when and why AI projects need high performance computing (HPC).
+- Understand when and why AI projects need high-performance computing (HPC).
 - Be able to start a JupyterHub session with GPUs on Isambard-AI.
 - Be able to prepare an image dataset and train an image classification model on a GPU.
 - Know how to judge a classifier on imbalanced medical data.
-- Be able to train a model on several GPUs, and understand how this works.
+- Understand how training a model on multiple GPUs works.
 - Know how to work considerately on a shared supercomputer.
 
 ### What this course doesn't cover {.unnumbered}
@@ -150,7 +127,7 @@ These are the main points to take away.
 ::: {.callout-important icon=false title='Instructor notes'}
 Red boxes like this one are **instructor notes**. They are removed from the attendee copy of these notes (see `README.md`).
 
-**How the session runs:** attendees run a complete notebook (`notebooks/hpc-for-ai.ipynb`) in JupyterHub on Isambard-AI. Introduce each section with the slides, then run the matching cells on your screen while attendees run them in their own session. The training cells take several minutes, so use that time to talk through what's happening, with the GPU dashboard and the diagrams.
+**How the session runs:** attendees run a complete notebook (`notebooks/hpc-for-ai.ipynb`) in JupyterHub on Isambard-AI, either on their own or in small breakout groups, depending on numbers. Introduce each section with the slides, then run the matching cells on your screen while attendees run them in their own session. The training cells take several minutes, so use that time to talk through what's happening, with the GPU dashboard and the diagrams.
 
 **Suggested timings (3 hours):**
 
@@ -161,7 +138,7 @@ Red boxes like this one are **instructor notes**. They are removed from the atte
 | 3 | Meet FracAtlas | 0:40–1:15 |
 | | Break | 1:15–1:30 |
 | 4 | Training on one GPU | 1:30–2:10 |
-| 5 | Scaling to four GPUs | 2:10–2:45 |
+| 5 | Scaling to four GPUs (demo) | 2:10–2:45 |
 | 6 | Good practice and next steps | 2:45–3:00 |
 
 If you're running behind, start the 1-GPU training run just before the break so it finishes while people are away.
@@ -178,7 +155,7 @@ You'll need:
 - A UNIX username, set in the BriCS portal. JupyterHub won't start without one. There are instructions in [Setting your UNIX username](https://docs.isambard.ac.uk/user-documentation/guides/shortname/).
 - A web browser. Everything happens in the browser, so you don't need to install anything.
 
-Please check that you can log in to the [BriCS portal](https://portal.isambard.ac.uk) before the day.
+If you can, please check that you can log in to the [BriCS portal](https://portal.isambard.ac.uk) before the day.
 
 # Why HPC for AI?
 
@@ -197,7 +174,7 @@ A GPU has thousands of simpler cores that all do the same sum on different numbe
 :::
 :::
 
-Most laptops have a CPU with a few cores, and many don't have an NVIDIA GPU, which is what most deep learning software is built to use. That's fine for learning and for small models, but bigger projects soon run into problems. Training can take hours or days, the model or a batch of images might not fit in memory, or you might want to try lots of different settings and not have time.
+Most laptops have a CPU with only a few cores, and many don't have a dedicated NVIDIA GPU, which is what most deep learning software is built to use. That's fine for learning and for small models, but bigger projects soon run into problems. Training can take hours or days, the model or a batch of images might not fit in memory, or you might want to try lots of different settings and not have the time. This is where HPC systems like Isambard-AI come in. They have many nodes, each with several GPUs and plenty of memory, so you can train models that are too big for your laptop, or train the same model many times to find the best settings.
 
 ## Isambard-AI
 
@@ -205,7 +182,6 @@ Isambard-AI is a supercomputer in Bristol, run by the Bristol Centre for Superco
 
 ![A laptop compared with one Isambard-AI node](assets/laptop-vs-node.svg){fig-alt="A typical laptop has 4 to 16 CPU cores and often no GPU. One Isambard-AI node has four GH200 superchips, each with a 72-core Grace CPU and an H100 GPU with 96 GB of memory. Isambard-AI Phase 2 has 1,320 nodes."}
 
-During the course you'll each have a whole node to yourself: four GPUs and 288 CPU cores.
 
 ::: {#keypoints1 .callout-tip icon=false title='Key points'}
 - Training a neural network is mostly multiplying large matrices, which GPUs do very quickly.
@@ -217,7 +193,7 @@ During the course you'll each have a whole node to yourself: four GPUs and 288 C
 ::: {.callout-important icon=false title='Instructor notes'}
 **Slides only** for this section; nobody needs to be logged in yet.
 
-**Ask the room:** has anyone trained a model that took more than an hour? What did they do while they waited? People's own experience makes the point better than the slides do.
+**Ask the room:** has anyone trained a model that took more than an hour?
 
 **Keep it short.** The matrix multiplication demo in section 2 shows the CPU/GPU difference far better than a slide can.
 :::
@@ -245,7 +221,7 @@ There's no single right answer, but these are common replies:
 
 On a supercomputer, you don't run your code on the computer you log in to. Instead, you ask a *scheduler* for the resources you need, and it finds a free compute node for you. The scheduler on Isambard-AI is called Slurm. JupyterHub talks to Slurm for us and then opens JupyterLab in the browser, running on the node Slurm found.
 
-![What happens when you start a JupyterHub session](assets/jupyterhub-flow.svg){fig-alt="Your browser connects to JupyterHub, which asks the Slurm scheduler for GPUs. Slurm starts JupyterLab on a compute node with four GH200s. The compute node reads shared course data from the project folder and saves your work to your scratch folder."}
+![What happens when you start a JupyterHub session](assets/jupyterhub-flow.svg){fig-alt="Your browser connects to JupyterHub, which asks the Slurm scheduler for GPUs. Slurm starts a JupyterLab session on a compute node. The compute node reads shared course data from the project folder and saves your work to your scratch folder."}
 
 ## Start a session
 
@@ -256,7 +232,7 @@ On a supercomputer, you don't run your code on the computer you log in to. Inste
 |---|---|
 | Project | The course project (we'll tell you its name) |
 | Job duration | The shortest option that lasts until the end of the course |
-| Number of GH200s | 4 |
+| Number of GH200s | 1 |
 | Partition | Leave this empty |
 | Reservation | `interactive` |
 
@@ -269,7 +245,7 @@ When the time you chose runs out, the session ends straight away, with no warnin
 
 ## Set up the course kernel
 
-The *kernel* is the Python environment your notebook runs in. We've made one for this course with PyTorch and all the other packages installed, and you need to tell JupyterLab about it. You only have to do this once.
+The *kernel* is the Python environment your notebook runs in. We've made one especially for this course, with PyTorch and all the other packages installed, and you need to tell JupyterLab to use it. You only have to do this once.
 
 In JupyterLab, open a terminal (*File → New → Terminal*) and run:
 
@@ -296,7 +272,7 @@ Open `hpc-for-ai.ipynb` from the file browser on the left. The kernel name in th
 - *Someone has filled in Partition*: ask them to stop the server and start again with Partition empty. Setting a partition with the `interactive` reservation is against the acceptable use policy, and the job may be cancelled.
 - *"Pending in queue" for a long time*: the interactive nodes are shared with everyone on Isambard-AI, and each person can only have one interactive job at a time. If someone already has another interactive job running (for example from an earlier session they didn't stop), their new session will wait until it finishes. Check with `squeue --me --partition=interactive`.
 - *"Spawn failed: The Jupyter batch job has disappeared while pending in the queue"*: JupyterHub only waits so long for a node, then gives up, **but the Slurm job stays in the queue**. Ask them to cancel it before trying again, otherwise it blocks their next session and may start later with nobody using it: `squeue --me --partition=interactive` to find the job number, then `scancel <JOBID>`. In the dry run, this happened when asking for 4 GH200s, while 1 GH200 started within a minute or two.
-- *A session just won't start*: pair them up with a neighbour.
+- *A session just won't start*: if they're working on their own, move them into a breakout group. If they're already in a group, ask another member of the group to start a session and share their screen.
 - *Kernel not in the list*: refresh the browser tab after running the `ipykernel` command.
 - *`$PROJECTDIR` is empty in the terminal*: use the full path, `/projects/b6er/hpc-ai-1/...`.
 :::
@@ -336,7 +312,7 @@ The cell also sets two *environment variables*, which are settings that librarie
 - `YOLO_OFFLINE` tells Ultralytics not to try downloading anything (it normally checks for updates and downloads a font and some extra model files). Without it, you'd see warnings about failed downloads, and training would take a little longer to start.
 - `CUBLAS_WORKSPACE_CONFIG` is needed for training to give exactly the same result each time it runs with the same settings. It has to be set before the GPU is first used, otherwise PyTorch prints a long warning during training.
 
-The second asks PyTorch which GPUs it can see. It should find four, each with a name like `NVIDIA GH200`.
+The second asks PyTorch which GPUs it can see. It should find one, with a name like `NVIDIA GH200`.
 
 ```{.python filename="hpc-for-ai.ipynb"}
 print("PyTorch version:", torch.__version__)
@@ -429,12 +405,12 @@ print("Your work folder:  ", WORK_DIR)
 :::
 
 ::: {#exercise2 .callout-note icon=false title='Exercise'}
-1. Run `nvidia-smi` in a terminal. How much memory does each GPU have, and how much is being used?
+1. Run `nvidia-smi` in a terminal. How much memory does your GPU have, and how much is being used?
 2. Change `size` to `16384` in the matrix multiplication cell and run it again. Each matrix now has four times as many numbers. How do the CPU and GPU times change?
 :::
 
 ::: {#answer2 .callout-caution icon=false title='Answer' collapse="true"}
-1. Each GPU has about 96 GB of memory (`nvidia-smi` shows it in MiB). Once you've run the matrix multiplication cell, GPU 0 shows some memory in use by your notebook; the other three are almost empty.
+1. Your session has one GPU, with about 96 GB of memory (`nvidia-smi` shows it in MiB). Once you've run the matrix multiplication cell, it shows some memory in use by your notebook.
 2. Multiplying two *n* × *n* matrices takes roughly *n*³ operations, so doubling `size` means about 8 times as much work. The CPU time goes up a lot. The GPU time goes up much less, because the GPU has more work to spread across its cores, so the gap between the two usually gets bigger. Your exact numbers will be different.
 :::
 
@@ -461,8 +437,10 @@ There's one row for each image, and `df.shape` shows that there are 4,083 rows.
 counts = df["fractured"].value_counts().rename({0: "Not fractured", 1: "Fractured"})
 print(counts)
 print(f"\n{df['fractured'].mean():.1%} of images show a fracture")
+print(f"{(df['fractured'] == 0).mean():.1%} of images don't show a fracture")
 
 counts.plot(kind="bar", color=["#b895ce", "#3d0251"], rot=0, title="FracAtlas: images per class")
+plt.xlabel("Class")
 plt.ylabel("Number of images")
 plt.show()
 ```
@@ -514,7 +492,7 @@ sizes = pd.DataFrame(sizes, columns=["width", "height"])
 sizes.describe().round()
 ```
 
-Look at the widths and heights in the table. The model needs every image to be the same size, so when it loads an image it scales it until the shorter side is 512 pixels, then keeps the middle 512 × 512 square. For a tall image, that means a little is cut off the top and bottom. Choosing the size is a trade-off. Smaller images train faster, but fine details such as hairline fractures can get lost. In our dry run, 224 × 224 pixels with only 10 epochs trained in 30 seconds, but the model found far fewer of the fractures than 512 × 512 pixels with 50 epochs.
+Look at the widths and heights in the table. The model needs every image to be the same size. When it tests an image, it scales it until the shorter side is 512 pixels, then keeps the middle 512 × 512 square, so for a tall image a little is cut off the top and bottom. During training it also crops and flips the images at random, so the model sees slightly different versions each epoch. Choosing the size is a trade-off. Smaller images train faster, but fine details such as hairline fractures can get lost. In our dry run, 224 × 224 pixels with only 10 epochs trained in 30 seconds, but the model found far fewer of the fractures than 512 × 512 pixels with 50 epochs.
 
 ## Fractures by body region
 
@@ -697,15 +675,26 @@ While it's training, Ultralytics prints a line for each epoch with the *loss*, w
 
 ## How did training go?
 
-Ultralytics saves some plots of the training run in the run's folder. This cell shows two of them. In the first, ignore the `accuracy_top5` plot: it measures whether the right answer is in the model's top five guesses, and with only two classes it always is.
+Ultralytics saves some plots of the training run in the run's folder. This cell shows the main one.
 
 ```{.python filename="hpc-for-ai.ipynb"}
 run_1gpu = RUNS_DIR / "1gpu"
 
-for plot in ["results.png", "confusion_matrix_normalized.png"]:
-    if (run_1gpu / plot).exists():
-        display(ShowImage(filename=str(run_1gpu / plot), width=800))
+display(ShowImage(filename=str(run_1gpu / "results.png"), width=800))
 ```
+
+### The training plots
+
+Each small plot shows one measurement, with the epoch number along the bottom. The blue line is the value at each epoch, and the dotted orange line is a smoothed version that makes the trend easier to see.
+
+| Plot | What it shows | What you want to see |
+|---|---|---|
+| `train/loss` | How wrong the model is on the training images | Going down |
+| `val/loss` | How wrong the model is on the validation images, which it doesn't learn from | Going down, then levelling off |
+| `metrics/accuracy_top1` | The proportion of validation images the model classifies correctly | Going up, then levelling off |
+| `metrics/accuracy_top5` | Whether the right answer is in the model's top five guesses | Ignore it: with only two classes, it's always 1 |
+
+Compare the two loss plots. If the training loss keeps falling but the validation loss starts to rise, the model is *overfitting*: it's learning details of the training images that don't help with new ones. You may see this towards the end of our run. This is one reason Ultralytics saves the epoch that did best on the validation set as `best.pt`, as well as the final one.
 
 ## Test the model
 
@@ -738,6 +727,17 @@ plt.show()
 | Precision | When the model says "fractured", how often is it right? |
 | Recall | What proportion of the real fractures did the model find? This is also called *sensitivity*. |
 | F1-score | A single score that combines precision and recall. |
+| Support | How many images of that class are in the test set. |
+
+The rows at the bottom summarise both classes:
+
+| Row | What it means |
+|---|---|
+| `accuracy` | The proportion of all test images the model classified correctly. |
+| `macro avg` | The plain average of the two classes' scores, so each class counts equally. |
+| `weighted avg` | The average weighted by `support`. There are many more `not_fractured` images, so this is close to the `not_fractured` scores. |
+
+Below the report is a *confusion matrix*, which compares the model's answers with the real labels. The **real label is up the side** and the **model's answer is along the bottom**, and each box shows a number of images. The correct answers are on the diagonal, from top left to bottom right. The missed fractures are in the `fractured` row, `not_fractured` column, and the false alarms are in the `not_fractured` row, `fractured` column.
 
 ## Is that accuracy any good?
 
@@ -790,9 +790,13 @@ Look at the classification report and confusion matrix for your 1-GPU model.
 
 [Is more GPUs always faster?]{.lead-question}
 
+::: {.callout-warning icon=false title='This section is a demo'}
+Your session has one GPU, so please don't run the cells in this section. The instructor will run them on screen in a session with four GPUs, and you can follow along here. If you want to try it yourself after the course, start a session with 4 GH200s.
+:::
+
 ## Data parallelism
 
-So far, only one of our four GPUs has done any work. The simplest way to use all four is called *data parallelism*.
+So far, we've trained on one GPU, but each Isambard-AI node has four. The simplest way to use all four is called *data parallelism*.
 
 ![Data parallel training: each GPU trains on part of each batch, then they share what they've learned](assets/data-parallel.svg){fig-alt="A batch of 64 images is split into four slices of 16. Each GPU holds an identical copy of the model, processes its slice and works out its own gradients. The GPUs then average their gradients in an all-reduce step, so every copy makes the same update and stays identical."}
 
@@ -843,16 +847,22 @@ timings = pd.DataFrame(
 timings["speed-up"] = (time_1gpu / 60 / timings["minutes"]).round(2)
 print(timings.round(2))
 
-timings["minutes"].plot(kind="barh", color=["#b895ce", "#3d0251"], title="Training time")
+ax = timings["minutes"].plot(kind="barh", color=["#b895ce", "#3d0251"], title="Training time on 1 and 4 GPUs")
+perfect = ax.axvline(time_1gpu / 60 / 4, color="grey", linestyle="--", label="Perfect 4x speed-up")
+ax.bar_label(ax.containers[0], labels=[f"{s:.1f}x" for s in timings["speed-up"]], padding=4)
+ax.invert_yaxis()
+ax.set_xlim(0, timings["minutes"].max() * 1.2)
 plt.xlabel("Minutes")
+plt.legend(handles=[perfect])
 plt.show()
 ```
+
+Each bar shows how long a run took, and the number at the end is its speed-up compared with 1 GPU. The dashed line shows where the 4-GPU bar would end if four GPUs were exactly four times faster. The gap between the end of the 4-GPU bar and the dashed line is the time spent on the extra work that comes with using several GPUs.
 
 It almost certainly wasn't four times faster. There are a few reasons for this:
 
 - It takes time to start four processes and connect the GPUs to each other, and for a short training run that's a large part of the total time.
 - After every batch, the GPUs have to stop and share their gradients.
-- Each GPU only gets 16 images per batch now, so it has less work to do between each round of sharing gradients, and spends more of its time waiting.
 - The CPU workers now have to load images for four GPUs instead of one.
 
 With a small model and dataset like ours, these costs can cancel out most of the benefit of the extra GPUs. With large models and datasets that take hours or days to train, they matter much less, and more GPUs can make a big difference.
@@ -868,51 +878,19 @@ plt.title("4 GPUs: test set")
 plt.show()
 ```
 
-The results should be close to the 1-GPU model's, but not exactly the same. The images are shuffled differently and each batch is shared out between the GPUs, so the training doesn't follow exactly the same path.
-
-## Give each GPU more work
-
-To make the comparison fairer, we can give each GPU as much work as the single GPU had before. That means 64 images per GPU, or a total batch of 256.
-
-```{.python filename="hpc-for-ai.ipynb"}
-model = YOLO(WEIGHTS)
-
-start = time.perf_counter()
-model.train(
-    data=str(SPLIT_DIR),
-    epochs=EPOCHS,
-    imgsz=IMG_SIZE,
-    batch=BATCH * 4,      # 256 / 4 = 64 images per GPU
-    workers=WORKERS,
-    device=[0, 1, 2, 3],
-    project=str(RUNS_DIR),
-    name="4gpu-bigbatch",
-    exist_ok=True,
-    seed=42,
-)
-time_4gpu_big = time.perf_counter() - start
-
-timings.loc["4 GPUs, 4x batch", "minutes"] = time_4gpu_big / 60
-timings["speed-up"] = (time_1gpu / 60 / timings["minutes"]).round(2)
-print(timings.round(2))
-```
-
-::: {.callout-note icon=false title='Bigger batches change how the model trains'}
-With a batch of 256, the model only updates its weights once for every 256 images, instead of once for every 64. That can change how well it learns, and people often increase the learning rate to make up for it. A faster model is only useful if it's still a good model, so check the test results as well as the time.
-:::
+The results should be close to the 1-GPU model's, but not exactly the same. The images are shuffled differently and each batch is shared out between the GPUs, so the training doesn't follow exactly the same path. With only 108 fractures in the test set, a difference of a few fractures found or missed is within normal run-to-run variation.
 
 ::: {#keypoints5 .callout-tip icon=false title='Key points'}
 - In data parallel training, each GPU has a copy of the model and part of each batch, and the GPUs average their gradients after every batch.
 - PyTorch's DDP runs one process per GPU. Ultralytics starts these processes for you when you give it a list of GPUs.
 - Using more GPUs adds extra work: starting up, sharing gradients and loading data. Small jobs might hardly speed up at all.
-- To keep each GPU busy, increase the total batch size along with the number of GPUs, and check that the model is still as accurate.
 :::
 
 ::: {.content-hidden when-meta="attendee"}
 ::: {.callout-important icon=false title='Instructor notes'}
 **While it's training**, show the dashboard with all four GPUs working, and `nvidia-smi` in a terminal with four processes. Point out the `DDP:` line in the output.
 
-**Your dry-run numbers:** TODO 4-GPU time, 4-GPU big-batch time.
+**Your dry-run numbers** (4 GH200s): training took **1.4 minutes**, a **2.4x** speed-up on the 3.4-minute 1-GPU run. Test accuracy was 92.3% and fractured recall was 0.69, about the same as the 1-GPU model.
 
 **Don't apologise if it isn't much faster.** With a model this small, the 4-GPU run might be only slightly faster, or even slower. That's the answer to this section's question.
 
@@ -920,29 +898,27 @@ With a batch of 256, the model only updates its weights once for every 256 image
 
 - *No training output in the notebook*: the training runs in separate processes, and on some setups their output goes to the server log instead of the notebook. TODO: check in the dry run. If this happens, tell people to watch the dashboard and wait for the cell to finish.
 - *`Address already in use`, or the cell never finishes*: a previous DDP run didn't shut down properly. Restart the kernel (*Kernel → Restart Kernel*), run the setup cells again and try again.
-- *Running out of time*: skip the bigger batch run. It's an extra.
 :::
 :::
 
 ::: {#exercise5 .callout-note icon=false title='Exercise'}
-Fill in this table with your own results:
+Fill in this table with the results from the demo:
 
 | Run | Minutes | Speed-up | Fractured recall |
 |---|---|---|---|
-| 1 GPU, batch 64 | | 1.0 | |
-| 4 GPUs, batch 64 | | | |
-| 4 GPUs, batch 256 | | | |
+| 1 GPU | | 1.0 | |
+| 4 GPUs | | | |
 
-1. Which run was fastest? Was the speed-up close to 4?
+1. How much faster was the 4-GPU run? Was the speed-up close to 4?
 2. Did the model get better, get worse or stay about the same?
 3. What do you think would happen with a much bigger model, such as `yolov8x-cls.pt`?
 :::
 
 ::: {#answer5 .callout-caution icon=false title='Answer' collapse="true"}
-Your numbers will be different, but this is what usually happens:
+The numbers will vary from run to run, but this is what usually happens:
 
-1. Four GPUs with a batch of 256 should usually be faster than four GPUs with a batch of 64, because each GPU does more work between each round of sharing gradients. Neither is close to four times faster for a job this small, because starting up, sharing gradients and loading data take up a lot of the time.
-2. Usually about the same. The bigger batch might be slightly worse, because the model updated its weights fewer times.
+1. The 4-GPU run should be faster, but not four times faster. In our dry run it was about 2.4 times faster. For a job this small, starting up, sharing gradients and loading data take up a lot of the time.
+2. About the same. Small differences in recall are normal between runs.
 3. A bigger model does much more calculation for each image, so the GPUs spend more of their time calculating and less time waiting. The speed-up from four GPUs gets closer to four. (You'd need to download the bigger model's weights first.)
 :::
 
@@ -1046,9 +1022,9 @@ The course runs in the training project, using the `interactive` reservation. Th
 
 Things to check before the course:
 
-- **How many attendees can have 4 GPUs at once.** Some projects are limited to 32 GPUs in total, which would mean only 8 people with a whole node each. Ask BriCS whether the training project has a GPU limit. If it does, either limit numbers, or put attendees in pairs sharing one session.
-- **Whether the project's allocation covers it.** Each attendee uses one node for about 3 hours, which is about 4.5 node-hours each with the interactive premium. Don't forget the instructors and the dry run.
-- **Queueing.** There's no reservation, so attendees share the interactive nodes with everyone else on Isambard-AI. In the dry run, a 1-GH200 session started within a minute or two, but a 4-GH200 request waited until JupyterHub gave up. Ask people to start their session as soon as they arrive, and have a plan ready if 4-GH200 sessions don't start (pairs, or 1 GH200 each with section 5 demonstrated on your screen).
+- **How many GPUs the project can use at once.** Each attendee (or each breakout group) uses 1 GH200, and the instructor uses 4 GH200s for the section 5 demo. Ask BriCS whether the training project has a GPU limit.
+- **Whether the project's allocation covers it.** Each session runs for about 3 hours. Check with BriCS how 1-GH200 sessions are charged, and don't forget the instructors and the dry run.
+- **Queueing.** There's no reservation, so attendees share the interactive nodes with everyone else on Isambard-AI. In the dry run, a 1-GH200 session started within a minute or two, but a 4-GH200 request waited until JupyterHub gave up. This is why attendees use 1 GH200 each. Ask people to start their session as soon as they arrive. Start your own 4-GH200 session well before the course, and use it for the whole session, since you can only have one interactive job running at a time.
 - **Accounts.** Send project invitations at least a week before, and remind people to set a UNIX username.
 
 **2. Shared files**
@@ -1058,6 +1034,7 @@ The compute nodes can't reach the internet, so a JupyterHub terminal can't downl
 ```
 $PROJECTDIR/hpc-ai-1/
 ├── venv/                  the course Python environment (kernel)
+├── python/                the copy of Python that the venv uses
 ├── FracAtlas/             the dataset, unzipped from figshare
 ├── weights/yolov8n-cls.pt the model weights, downloaded in advance
 └── hpc-for-ai.ipynb       the course notebook
@@ -1098,13 +1075,13 @@ Login node sessions are limited to one CPU core and 4 GiB of memory, so installi
 
 **3. Dry run (essential)**
 
-Run the whole notebook in a JupyterHub session with 4 GH200s, as an attendee would, and note down:
+Run the whole notebook in a JupyterHub session with 4 GH200s, as you will for the demo, and note down:
 
 - [x] How long 1-GPU training takes (3.4 minutes with `EPOCHS = 50`, `IMG_SIZE = 512`).
 - [x] The 1-GPU test accuracy and fractured recall (see section 4).
 - [x] Whether Ultralytics tries to download anything during training with `YOLO_OFFLINE=1` (no problems in the 1-GPU dry run).
 - [x] The package versions that worked (pinned in `setup/requirements.txt`).
-- [ ] How long the 4-GPU runs take, for the instructor notes in section 5.
+- [x] How long the 4-GPU run takes (1.4 minutes, 2.4x faster than 1 GPU).
 - [ ] Whether the output from the 4-GPU runs appears in the notebook.
 - [ ] How long it takes to get a 4-GH200 session at the time of day the course will run.
 - [x] Whether the column names in `dataset.csv` match the ones used in the notebook. (Checked: they do.)
