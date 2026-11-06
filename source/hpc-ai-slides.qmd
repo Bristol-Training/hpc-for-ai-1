@@ -33,6 +33,14 @@ By the end of the session, everyone will have trained an X-ray classifier on one
 - Once a cell has run, try changing something
 - The course notes go through every step, with an exercise for each section
 
+## How the breakout rooms work
+
+![](assets/breakout-rooms.svg){fig-alt="Everyone starts in the main room, where Evie teaches and demonstrates. For the hands-on parts, people move into breakout rooms. In each room, one driver runs the notebook on Isambard-AI with one GPU and shares their screen, and the rest of the group follows the notes, suggests what to try and answers the exercises. Groups post a thumbs up and their answers in the main chat, and Evie, Will and Pau drop into the rooms to help." width="100%"}
+
+::: notes
+Say who the drivers are for each room. If a driver's session won't start, someone else in the group can start one instead. Remind drivers to keep their session running over the break.
+:::
+
 ## The plan
 
 ::: {.flow}
